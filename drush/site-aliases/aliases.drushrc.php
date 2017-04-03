@@ -359,3 +359,14 @@
 #    'uri' => 'http://example.com',
 #    'root' => $aliases['dev']['root'],
 #  ) + $aliases['server'];
+// [vagrant_machine_name].local
+$aliases['speedrun.local'] = array(
+  // /var/www/[vagrant_machine_name]/docroot
+  'root' => '/var/www/speedrun/docroot',
+  // vagrant_hostname
+  'uri' => 'http://local.speedrun.com',
+  // vagrant_hostname
+  'remote-host' => 'local.speedrun.com',
+  'remote-user' => 'vagrant',
+  'ssh-options' => '-o PasswordAuthentication=no -i ' . drush_server_home() . '/.vagrant.d/insecure_private_key'
+);

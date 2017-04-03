@@ -3,16 +3,37 @@
 /**
  * @file
  * Local development override configuration feature.
- *
- * To activate this feature, copy and rename it such that its path plus
- * filename is 'sites/default/settings.local.php'. Then, go to the bottom of
- * 'sites/default/settings.php' and uncomment the commented lines that mention
- * 'settings.local.php'.
- *
- * If you are using a site name in the path, such as 'sites/example.com', copy
- * this file to 'sites/example.com/settings.local.php', and uncomment the lines
- * at the bottom of 'sites/example.com/settings.php'.
  */
+
+/**
+ * Database configuration.
+ */
+$databases = array(
+  'default' =>
+  array(
+    'default' =>
+    array(
+      'database' => 'drupal',
+      'username' => 'drupal',
+      'password' => 'drupal',
+      'host' => 'localhost',
+      'port' => '3306',
+      'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+      'driver' => 'mysql',
+      'prefix' => '',
+    ),
+  ),
+);
+
+// Configuration directories.
+$dir = dirname(DRUPAL_ROOT);
+$config_directories['sync'] = $dir . "/config/$site_dir";
+
+// Use development service parameters.
+$settings['container_yamls'][] = $dir . '/docroot/sites/development.services.yml';
+
+// Allow access to update.php.
+$settings['update_free_access'] = TRUE;
 
 /**
  * Assertions.
@@ -32,11 +53,6 @@
  */
 assert_options(ASSERT_ACTIVE, TRUE);
 \Drupal\Component\Assertion\Handle::register();
-
-/**
- * Enable local development services.
- */
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
 
 /**
  * Show all error messages, with backtrace information.
@@ -67,14 +83,6 @@ $config['system.performance']['js']['preprocess'] = FALSE;
 # $settings['cache']['bins']['render'] = 'cache.backend.null';
 
 /**
- * Disable caching for migrations.
- *
- * Uncomment the code below to only store migrations in memory and not in the
- * database. This makes it easier to develop custom migrations.
- */
-# $settings['cache']['bins']['discovery_migration'] = 'cache.backend.memory';
-
-/**
  * Disable Dynamic Page Cache.
  *
  * Note: you should test with Dynamic Page Cache enabled, to ensure the correct
@@ -90,7 +98,7 @@ $config['system.performance']['js']['preprocess'] = FALSE;
  * During development it can be useful to install test extensions for debugging
  * purposes.
  */
-$settings['extension_discovery_scan_tests'] = TRUE;
+$settings['extension_discovery_scan_tests'] = FALSE;
 
 /**
  * Enable access to rebuild.php.
@@ -100,16 +108,31 @@ $settings['extension_discovery_scan_tests'] = TRUE;
  * be gained by generating a query string from rebuild_token_calculator.sh and
  * using these parameters in a request to rebuild.php.
  */
-$settings['rebuild_access'] = TRUE;
+$settings['rebuild_access'] = FALSE;
 
 /**
- * Skip file system permissions hardening.
+ * Temporary file path:
  *
- * The system module will periodically check the permissions of your site's
- * site directory to ensure that it is not writable by the website user. For
- * sites that are managed with a version control system, this can cause problems
- * when files in that directory such as settings.php are updated, because the
- * user pulling in the changes won't have permissions to modify files in the
- * directory.
+ * A local file system path where temporary files will be stored. This
+ * directory should not be accessible over the web.
+ *
+ * Note: Caches need to be cleared when this value is changed.
+ *
+ * See https://www.drupal.org/node/1928898 for more information
+ * about global configuration override.
  */
-$settings['skip_permissions_hardening'] = TRUE;
+$config['system.file']['path']['temporary'] = '/tmp';
+
+/**
+ * Private file path.
+ */
+$settings['file_private_path'] = $dir . '/files-private';
+
+/**
+ * Trusted host configuration.
+ *
+ * See full description in default.settings.php.
+ */
+# $settings['trusted_host_patterns'] = array(
+#   '^example\.local$',
+# );

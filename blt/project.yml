@@ -1,7 +1,7 @@
 project:
   machine_name: speedrun
-  prefix: BLT
-  human_name: 'BLTed 8'
+  prefix: DXR
+  human_name: 'DevEx Roadshow - Speedrun App'
   profile:
     name: lightning
   local:
@@ -9,7 +9,9 @@ project:
     hostname: 'local.${project.machine_name}.com'
 git:
   default_branch: master
-  remotes: {  }
+  remotes:
+    cloud: speedrun@svn-20497.prod.hosting.acquia.com:speedrun.git
+    github: git@github.com:DevExRoadshow/speedrun.git
 drush:
   aliases:
     remote: '${project.machine_name}.test'
