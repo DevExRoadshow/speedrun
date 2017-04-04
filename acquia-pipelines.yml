@@ -39,7 +39,7 @@ events:
               - ../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &
               - ../vendor/bin/phantomjs --webdriver=4444 > /dev/null &
               - sleep 10
-              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
+              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=3e4c4684
 
         # Generate artifact.
         #- build-artifact:
