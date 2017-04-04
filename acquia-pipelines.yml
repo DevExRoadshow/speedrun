@@ -37,8 +37,7 @@ events:
             script:
               - set -x
               - blt tests:phantomjs:launch
-              - pwd
-              - ../vendor/bin/behat --config ./docroot/sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
+              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
 
         # Generate artifact.
         - build-artifact:
