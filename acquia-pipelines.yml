@@ -41,8 +41,8 @@ events:
               - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
 
         # Generate artifact.
-        - build-artifact:
-            type: script
-            script:
-              - set -x
-              - source ${BLT_DIR}/scripts/pipelines/build_artifact
+        #- build-artifact:
+         #   type: script
+          #  script:
+           #   - set -x
+            #  - source ${BLT_DIR}/scripts/pipelines/build_artifact
