@@ -28,7 +28,7 @@ events:
             script:
               - set -x
               - cd ./docroot
-              - ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal
+              - ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
               - ../vendor/bin/drush pm-enable lightning_dev --yes
 
         # Execute all testing and validation tasks.
