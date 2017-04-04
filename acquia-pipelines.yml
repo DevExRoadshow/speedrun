@@ -14,20 +14,43 @@ events:
         - setup:
             type: script
             script:
+              - set -x
               - composer self-update
               - composer validate --no-check-all --ansi
               - composer install
               - source ${BLT_DIR}/scripts/pipelines/setup_environment
               - source ${BLT_DIR}/scripts/pipelines/setup_project
+              - composer install-phantomjs
+
+        # Install Lightning and setup behat config.
+        - configure-behat:
+            type: script
+            script:
+              - set -x
+              - cd ./docroot
+              # Install Lightning.
+              - ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
+              # Lightning Dev will automatically scan for feature files in
+              # enabled extensions and generate a behat configuration file based
+              # on the results.
+              - ../vendor/bin/drush pm-enable lightning_dev --yes
 
         # Execute all testing and validation tasks.
         - run-tests:
             type: script
             script:
-              - source ${BLT_DIR}/scripts/pipelines/run_tests
+              - set -x
+              - ../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &
+              - ../vendor/bin/phantomjs --webdriver=4444 > /dev/null &
+              - sleep 10
+              # Run two specific Lightning tests:
+              # - Panelizer is enabled for landing pages (1e244c89)
+              # - Uploading an image to be ignored by the media library (b23435a5)
+              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89,b23435a5
 
         # Generate artifact.
         - build-artifact:
             type: script
             script:
+              - set -x
               - source ${BLT_DIR}/scripts/pipelines/build_artifact
