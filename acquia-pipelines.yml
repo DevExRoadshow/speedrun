@@ -36,7 +36,7 @@ events:
             type: script
             script:
               - set -x
-              - blt tests:phantom:launch
+              - blt tests:phantomjs:launch
               - ./vendor/bin/behat --config ./docroot/sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
 
         # Generate artifact.
