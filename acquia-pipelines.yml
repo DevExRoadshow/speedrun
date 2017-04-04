@@ -27,7 +27,8 @@ events:
             type: script
             script:
               - set -x
-              - ./vendor/bin/drush pm-enable lightning_dev --yes
+              - cd ./docroot
+              - ../vendor/bin/drush pm-enable lightning_dev --yes
 
         # Execute all testing and validation tasks.
         - run-tests:
