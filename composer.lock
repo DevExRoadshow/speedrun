@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e51335b7752a92d0ebde73e5749c972",
+    "content-hash": "a5e01409eea8543a48fccdcf06c8480b",
     "packages": [
         {
             "name": "acquia/blt",
@@ -527,26 +527,26 @@
         },
         {
             "name": "consolidation/annotated-command",
-            "version": "2.4.7",
+            "version": "2.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/annotated-command.git",
-                "reference": "37dad31682b8333c00a84243acd81ad7da5933aa"
+                "reference": "6672ea38212f8bffb71fec7eadc8b3372154b17e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/37dad31682b8333c00a84243acd81ad7da5933aa",
-                "reference": "37dad31682b8333c00a84243acd81ad7da5933aa",
+                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/6672ea38212f8bffb71fec7eadc8b3372154b17e",
+                "reference": "6672ea38212f8bffb71fec7eadc8b3372154b17e",
                 "shasum": ""
             },
             "require": {
                 "consolidation/output-formatters": "^3.1.5",
                 "php": ">=5.4.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
-                "psr/log": "~1",
-                "symfony/console": "^2.8 || >=3.0 <3.2.5",
-                "symfony/event-dispatcher": "^2.5|~3",
-                "symfony/finder": "^2.5|~3"
+                "psr/log": "^1",
+                "symfony/console": "^2.8|~3",
+                "symfony/event-dispatcher": "^2.5|^3",
+                "symfony/finder": "^2.5|^3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8",
@@ -575,7 +575,7 @@
                 }
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
-            "time": "2017-03-18T00:43:15+00:00"
+            "time": "2017-04-03T22:37:00+00:00"
         },
         {
             "name": "consolidation/output-formatters",
@@ -727,7 +727,7 @@
                 "dot",
                 "notation"
             ],
-            "time": "2017-01-20T21:14:22+00:00"
+            "time": "2017-01-20 21:14:22"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3615,6 +3615,9 @@
                 "drupal": {
                     "version": "8.x-1.0-beta5",
                     "datestamp": "1491153783"
+                },
+                "patches_applied": {
+                    "2866454 - Update 8103 causes sadness": "https://www.drupal.org/files/issues/2866454-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4003,7 +4006,8 @@
                 },
                 "patches_applied": {
                     "2668006 - Provide logical access control for when IPE should be applied to moderated nodes": "https://www.drupal.org/files/issues/2668006-2.patch",
-                    "2847078 - Revision tracker's dynamic table creation can break Views": "https://www.drupal.org/files/issues/2847078-6.patch"
+                    "2847078 - Revision tracker's dynamic table creation can break Views": "https://www.drupal.org/files/issues/2847078-6.patch",
+                    "2749503 - Add basic support for Quick Edit": "https://www.drupal.org/files/issues/workbench_moderation-quickedit-support-2749503-6.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4125,6 +4129,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "8.0.x-dev"
+                },
+                "patches_applied": {
+                    "2697 - Don't add profile dependencies to required_by array of modules": "https://patch-diff.githubusercontent.com/raw/drush-ops/drush/pull/2697.patch"
                 }
             },
             "autoload": {
@@ -5225,7 +5232,7 @@
             "keywords": [
                 "instagram"
             ],
-            "time": "2013-11-13T23:10:03+00:00"
+            "time": "2013-11-13 23:10:03"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -9764,6 +9771,121 @@
             ],
             "description": "Behat 3 JUnit xml formatter",
             "time": "2016-01-26T17:05:07+00:00"
+        },
+        {
+            "name": "jcalderonzumba/gastonjs",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jcalderonzumba/gastonjs.git",
+                "reference": "4d7fe5f8a92f247bafa618189ea0fb60f82fb7ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jcalderonzumba/gastonjs/zipball/4d7fe5f8a92f247bafa618189ea0fb60f82fb7ff",
+                "reference": "4d7fe5f8a92f247bafa618189ea0fb60f82fb7ff",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~5.0|~6.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6",
+                "silex/silex": "~1.2",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/process": "~2.1"
+            },
+            "type": "phantomjs-api",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zumba\\GastonJS\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Francisco Calderón Zumba",
+                    "email": "juanfcz@gmail.com",
+                    "homepage": "http://github.com/jcalderonzumba"
+                }
+            ],
+            "description": "PhantomJS API based server for webpage automation",
+            "homepage": "https://github.com/jcalderonzumba/gastonjs",
+            "keywords": [
+                "api",
+                "automation",
+                "browser",
+                "headless",
+                "phantomjs"
+            ],
+            "time": "2016-11-10T11:26:43+00:00"
+        },
+        {
+            "name": "jcalderonzumba/mink-phantomjs-driver",
+            "version": "v0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jcalderonzumba/MinkPhantomJSDriver.git",
+                "reference": "008f43670e94acd39273d15add1e7348eb23848d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jcalderonzumba/MinkPhantomJSDriver/zipball/008f43670e94acd39273d15add1e7348eb23848d",
+                "reference": "008f43670e94acd39273d15add1e7348eb23848d",
+                "shasum": ""
+            },
+            "require": {
+                "behat/mink": "~1.7",
+                "jcalderonzumba/gastonjs": "~1.0",
+                "php": ">=5.4",
+                "twig/twig": "~1.20|~2.0"
+            },
+            "require-dev": {
+                "mink/driver-testsuite": "dev-master",
+                "phpunit/phpunit": "~4.6"
+            },
+            "type": "mink-driver",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zumba\\Mink\\Driver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Francisco Calderón Zumba",
+                    "email": "juanfcz@gmail.com",
+                    "homepage": "http://github.com/jcalderonzumba"
+                }
+            ],
+            "description": "PhantomJS driver for Mink framework",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "ajax",
+                "browser",
+                "headless",
+                "javascript",
+                "phantomjs",
+                "testing"
+            ],
+            "time": "2016-12-01T10:57:30+00:00"
         },
         {
             "name": "se/selenium-server-standalone",

@@ -30,6 +30,7 @@
         "bex/behat-screenshot": "^1.2",
         "se/selenium-server-standalone": "^2.53",
         "jakoch/phantomjs-installer": "^2.1.1-p07",
+        "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
         "geerlingguy/drupal-vm": "~4.3"
     },
     "repositories": {
@@ -96,7 +97,6 @@
             "@composer install"
         ],
         "install-phantomjs": [
-            "rm -rf vendor/bin/phantomjs",
             "PhantomInstaller\\Installer::installPhantomJS"
         ]
     }
