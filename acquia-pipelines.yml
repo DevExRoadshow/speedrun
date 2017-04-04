@@ -14,20 +14,32 @@ events:
         - setup:
             type: script
             script:
+              - set -x
               - composer self-update
               - composer validate --no-check-all --ansi
               - composer install
               - source ${BLT_DIR}/scripts/pipelines/setup_environment
               - source ${BLT_DIR}/scripts/pipelines/setup_project
+              - composer install-phantomjs
+
+        # Setup behat config
+        - configure-behat:
+            type: script
+            script:
+              - set -x
+              - ./vendor/bin/drush pm-enable lightning_dev --yes
 
         # Execute all testing and validation tasks.
         - run-tests:
             type: script
             script:
-              - source ${BLT_DIR}/scripts/pipelines/run_tests
+              - set -x
+              - blt tests:phantom:launch
+              - ./vendor/bin/behat --config ./docroot/sites/default/files/behat.yml --tags=3e4c4684,988f4ee4
 
         # Generate artifact.
         - build-artifact:
             type: script
             script:
+              - set -x
               - source ${BLT_DIR}/scripts/pipelines/build_artifact
