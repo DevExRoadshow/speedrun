@@ -71,6 +71,11 @@
             "merge-extra-deep": true,
             "merge-scripts": true,
             "replace": true
+        },
+        "scripts": {
+            "install-phantomjs": [
+                "PhantomInstaller\\Installer::installPhantomJS"
+            ]
         }
     }
 }
