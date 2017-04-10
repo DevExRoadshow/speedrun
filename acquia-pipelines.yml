@@ -59,7 +59,6 @@ events:
         - deploy:
             script:
               - pipelines-deploy
-              - blt local:refresh
 
   # When a GitHub pull request is merged, this deletes the coresponding ODE.
   pr-merged:
@@ -68,7 +67,7 @@ events:
             script:
               - pipelines-deploy
 
-  # When a GitHub pull request is closed, this deletes the coresponding ODE.
+  # When a GitHub pull request is closed, this deletes the corresponding ODE.
   pr-closed:
     steps:
         - deploy:

@@ -27,3 +27,5 @@ if [ ! -f $acsf_file ]; then
   . `dirname $0`/../slack.sh
   exit $status
 fi
+
+drush @$site.$target_env status | grep -q 'Successful' && echo -e ‘Site already installed. Skipping drush site-install’ || drush @$site.$target_env site-install lightning —account-pass=admin —yes
