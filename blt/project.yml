@@ -10,8 +10,8 @@ project:
 git:
   default_branch: master
   remotes:
-    cloud: speedrun@svn-20497.prod.hosting.acquia.com:speedrun.git
-    github: git@github.com:DevExRoadshow/speedrun.git
+    cloud: 'speedrun@svn-20497.prod.hosting.acquia.com:speedrun.git'
+    github: 'git@github.com:DevExRoadshow/speedrun.git'
 drush:
   aliases:
     remote: '${project.machine_name}.test'
@@ -51,4 +51,5 @@ modules:
   prod:
     enable: [acquia_connector, shield]
     uninstall: [devel, views_ui]
-
+cm:
+  strategy: features
