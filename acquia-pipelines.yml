@@ -46,7 +46,7 @@ events:
               # Run two specific Lightning tests:
               # - Panelizer is enabled for landing pages (1e244c89)
               # - Uploading an image to be ignored by the media library (b23435a5)
-              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89,b23435a5
+              #- ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89,b23435a5
 
         # Generate artifact.
         - build-artifact:
