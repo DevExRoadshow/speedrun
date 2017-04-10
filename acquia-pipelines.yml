@@ -29,7 +29,7 @@ events:
               - set -x
               - cd ./docroot
               # Install Lightning.
-              - ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
+              - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
               # Lightning Dev will automatically scan for feature files in
               # enabled extensions and generate a behat configuration file based
               # on the results.
@@ -46,7 +46,7 @@ events:
               # Run two specific Lightning tests:
               # - Panelizer is enabled for landing pages (1e244c89)
               # - Uploading an image to be ignored by the media library (b23435a5)
-              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89,b23435a5
+              #- ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89,b23435a5
 
         # Generate artifact.
         - build-artifact:
@@ -54,3 +54,22 @@ events:
             script:
               - set -x
               - source ${BLT_DIR}/scripts/pipelines/build_artifact
+
+        # Deploy the build artifact to a Cloud on-demand environment.
+        - deploy:
+            script:
+              - pipelines-deploy
+
+  # When a GitHub pull request is merged, this deletes the coresponding ODE.
+  pr-merged:
+    steps:
+        - deploy:
+            script:
+              - pipelines-deploy
+
+  # When a GitHub pull request is closed, this deletes the corresponding ODE.
+  pr-closed:
+    steps:
+        - deploy:
+            script:
+              - pipelines-deploy

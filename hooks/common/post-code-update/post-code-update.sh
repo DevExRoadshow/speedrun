@@ -20,6 +20,8 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
+drush @$site.$target_env status | grep 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin
+
 acsf_file="/mnt/files/$AH_SITE_GROUP.$AH_SITE_ENVIRONMENT/files-private/sites.json"
 if [ ! -f $acsf_file ]; then
   . /var/www/html/$site.$target_env/vendor/acquia/blt/scripts/cloud-hooks/functions.sh
