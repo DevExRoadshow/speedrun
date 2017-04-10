@@ -21,7 +21,6 @@ events:
               - source ${BLT_DIR}/scripts/pipelines/setup_environment
               - source ${BLT_DIR}/scripts/pipelines/setup_project
               - composer install-phantomjs
-              - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ./vendor/bin/drush site-install -y
 
         # Install Lightning and setup behat config.
         - configure-behat:
@@ -30,7 +29,7 @@ events:
               - set -x
               - cd ./docroot
               # Install Lightning.
-              - ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
+              - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
               # Lightning Dev will automatically scan for feature files in
               # enabled extensions and generate a behat configuration file based
               # on the results.
