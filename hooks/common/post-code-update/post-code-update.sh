@@ -20,4 +20,4 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
-drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin
+drush @$site.$target_env status | grep 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin
