@@ -53,7 +53,7 @@ events:
             type: script
             script:
               - set -x
-              - source ${BLT_DIR}/scripts/pipelines/build_artifact
+              #- source ${BLT_DIR}/scripts/pipelines/build_artifact
 
         # Deploy the build artifact to a Cloud on-demand environment.
         - deploy:
