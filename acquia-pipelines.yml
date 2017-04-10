@@ -54,10 +54,12 @@ events:
             script:
               - set -x
               - source ${BLT_DIR}/scripts/pipelines/build_artifact
+
         # Deploy the build artifact to a Cloud on-demand environment.
         - deploy:
             script:
               - pipelines-deploy
+              - blt local:refresh
 
   # When a GitHub pull request is merged, this deletes the coresponding ODE.
   pr-merged:
