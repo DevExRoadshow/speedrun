@@ -5,8 +5,7 @@ dependencies: {  }
 id: local
 label: Local
 folder: ../config/local
-module:
-  devel_generate: 0
+module: {  }
 theme: {  }
 blacklist: {  }
 graylist: {  }
