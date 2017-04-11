@@ -1,0 +1,56 @@
+project:
+  machine_name: speedrun
+  prefix: DXR
+  human_name: 'DevEx Roadshow - Speedrun App'
+  profile:
+    name: lightning
+  local:
+    protocol: http
+    hostname: 'local.${project.machine_name}.com'
+git:
+  default_branch: master
+  remotes:
+    cloud: 'speedrun@svn-20497.prod.hosting.acquia.com:speedrun.git'
+    github: 'git@github.com:DevExRoadshow/speedrun.git'
+drush:
+  aliases:
+    remote: '${project.machine_name}.test'
+    local: self
+    ci: self
+  default_alias: '${drush.aliases.local}'
+target-hooks:
+  frontend-setup:
+    dir: '${docroot}'
+    command: 'echo ''No frontend-setup configured.'''
+  frontend-build:
+    dir: '${docroot}'
+    command: 'echo ''No frontend-build configured.'''
+  pre-config-import:
+    dir: '${docroot}'
+    command: 'echo ''No pre-config-import configured.'''
+  post-deploy-build:
+    dir: '${docroot}'
+    command: 'echo ''No post-deploy build configured.'''
+  post-setup-build:
+    dir: '${docroot}'
+    command: 'echo ''No post-setup build configured.'''
+import: '${repo.root}/blt/build.xml'
+modules:
+  local:
+    enable: {  }
+    uninstall: {  }
+  ci:
+    enable: {  }
+    uninstall: {  }
+  dev:
+    enable: {  }
+    uninstall: {  }
+  test:
+    enable: {  }
+    uninstall: {  }
+  prod:
+    enable: {  }
+    uninstall: {  }
+cm:
+  strategy: config-split
+

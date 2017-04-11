@@ -1,0 +1,15 @@
+uuid: 2ed4c882-2c03-461d-8862-bc1c181eed80
+langcode: en
+status: true
+dependencies: {  }
+id: local
+label: Local
+folder: ../config/local
+module:
+  devel_generate: 0
+theme: {  }
+blacklist: {  }
+graylist: {  }
+graylist_dependents: true
+graylist_skip_equal: true
+weight: 0
