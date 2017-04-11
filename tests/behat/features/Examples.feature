@@ -10,6 +10,7 @@ Feature: Web drivers
     Given I am on "/"
     Then I should see the text "Log in"
 
+  @foo
   Scenario: Load a page without Javascript
     Given I am on "/"
     Then I should see the text "Log in"

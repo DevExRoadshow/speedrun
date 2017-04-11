@@ -16,16 +16,13 @@
             <param>drush</param>
         </drush>
         <if>
-            <or>
-                <equals arg1="${environment}" arg2="local" />
-                <equals arg1="${environment}" arg2="ci" />
-            </or>
+            <contains string="${environment}" substring="ode" />
             <then>
-                <drush command="config-split-import" assume="yes" alias="${drush.alias}">
-                    <param>${environment}</param>
+                <!-- CDEs don't have the config splits defined bc their db is new. -->
+                <drush command="config-import" assume="yes" alias="${drush.alias}">
+                    <option name="source">../config/default</option>
                 </drush>
             </then>
-            <!-- Cloud environments require vcs parameter. -->
             <else>
                 <drush command="config-split-import" assume="yes" alias="${drush.alias}">
                     <param>${environment}</param>
