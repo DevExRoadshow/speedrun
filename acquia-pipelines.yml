@@ -34,7 +34,8 @@ events:
               - ../vendor/bin/drush config-import --yes --config=../config/default
               # Lightning Dev will automatically scan for feature files in
               # enabled extensions and generate a behat configuration file based
-              # on the results.
+              # on the results. For this demo, we have a preconfigured behat.yml
+              # file so this line is commented out.
               # - ../vendor/bin/drush pm-enable lightning_dev --yes
 
         # Execute all testing and validation tasks.
