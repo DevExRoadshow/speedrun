@@ -10,7 +10,8 @@
         "drupal/acsf": "^1.32.0",
         "drush/drush": "8.1.10",
         "drupal/seckit": "^1.0",
-        "drupal/config_split": "^1.0"
+        "drupal/config_split": "^1.0",
+        "drupal/paragraphs": "^1.1"
     },
     "require-dev": {
         "behat/mink-goutte-driver": "~1.2",
