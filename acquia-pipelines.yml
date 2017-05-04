@@ -1,75 +1,65 @@
 version: 1.0.0
 services:
   - mysql
-
 variables:
   global:
     COMPOSER_BIN: $BUILD_DIR/vendor/bin
     BLT_DIR: $BUILD_DIR/vendor/acquia/blt
-
 events:
   build:
     steps:
-        # Install global packages and set global configuration.
-        - setup:
-            type: script
-            script:
-              - set -x
-              - composer self-update
-              - composer validate --no-check-all --ansi
-              - composer install
-              - source ${BLT_DIR}/scripts/pipelines/setup_environment
-              - source ${BLT_DIR}/scripts/pipelines/setup_project
-              - composer install-phantomjs
-
-        # Install Lightning and setup behat config.
-        - configure-behat:
-            type: script
-            script:
-              - set -x
-              - cd ./docroot
-              # Install Lightning.
-              - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
-              # Overwrite the database with the application stage env DB
-              - ../vendor/bin/drush --alias-path=../drush sql-sync @speedrun.test default
-              # Import config.
-              - ../vendor/bin/drush config-import --yes --config=../config/default
-
-        # Execute all testing and validation tasks.
-        - run-tests:
-            type: script
-            script:
-              - set -x
-              - ../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &
-              - ../vendor/bin/phantomjs --webdriver=4444 > /dev/null &
-              - sleep 10
-              # Run a specific Lightning test:
-              # - Panelizer is enabled for landing pages (1e244c89)
-              - pwd
-              - ../vendor/bin/behat --config ../behat.pipelines.yml --tags=1e244c89
-
-        # Generate artifact.
-        - build-artifact:
-            type: script
-            script:
-              - set -x
-              - source ${BLT_DIR}/scripts/pipelines/build_artifact
-
-        # Deploy the build artifact to a Cloud on-demand environment.
-        - deploy:
-            script:
-              - pipelines-deploy
-
-  # When a GitHub pull request is merged, this deletes the coresponding ODE.
+      -
+        setup:
+          type: script
+          script:
+            - 'set -x'
+            - 'composer self-update'
+            - 'composer validate --no-check-all --ansi'
+            - 'composer install'
+            - 'source ${BLT_DIR}/scripts/pipelines/setup_environment'
+            - 'source ${BLT_DIR}/scripts/pipelines/setup_project'
+            - 'composer install-phantomjs'
+      -
+        configure-behat:
+          type: script
+          script:
+            - 'set -x'
+            - 'cd ./docroot'
+            - '/usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes'
+            - '../vendor/bin/drush --alias-path=../drush sql-sync @speedrun.test default'
+            - '../vendor/bin/drush config-import --yes --config=../config/default'
+      -
+        run-tests:
+          type: script
+          script:
+            - 'set -x'
+            - '../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &'
+            - '../vendor/bin/phantomjs --webdriver=4444 > /dev/null &'
+            - 'sleep 10'
+            - pwd
+            - '../vendor/bin/behat --config ../behat.pipelines.yml --tags=1e244c89'
+      -
+        build-artifact:
+          type: script
+          script:
+            - 'set -x'
+            - 'source ${BLT_DIR}/scripts/pipelines/build_artifact'
+      -
+        deploy:
+          script:
+            - pipelines-deploy
   pr-merged:
     steps:
-        - deploy:
-            script:
-              - pipelines-deploy
-
-  # When a GitHub pull request is closed, this deletes the corresponding ODE.
+      -
+        deploy:
+          script:
+            - pipelines-deploy
   pr-closed:
     steps:
-        - deploy:
-            script:
-              - pipelines-deploy
+      -
+        deploy:
+          script:
+            - pipelines-deploy
+ssh-keys:
+  drush-key:
+    secure: 2acMir0kRS8OGXER0NWKKfonkL5YMjT8ctM9AaREhJcshlN2Kkr1V5Uig5mCayDGZsGn63ouZtRnU4SiEmbopaAfcKlPp6aBBcJSJyZ2J8WGQ1iWGSb/2mmk9fC1r+2d30rxmI1cK9wsX8vjuFuVhbln7G0Fp6VsHBcqgOU7Anygn+ZTtpfnsU4WhmiqDPXhfqxUnKRHEvzZ7HZldSzqikr9FJtugV1ago5KrjhaWw/xkDvMyS9Jh2ajMVMYGceteC/RjMpfY6kmEGoD4hVNItdw8aHeSqwua6yNkd/tvUO0uVdDVy9mrdoB5ipsIr8JIH8sGb71gryowP7DXrTbAkzTrg5CfNHEY1WhKX6YeMG1sz+rpS02uKN6urMXzp9Av54nmJxJsSIG05xz+dqoNKNGn9fSmzVtqabCFbN5UFdKtDqADSwp3nXww+gks3QA4513JaTkIk5VZ33Xkya7N4kze8eOKCiqTeasaNb6EWXjUvsS3gAfsWMx9CnIF4+K8uJcIyGyBl+lSdvaIsaF/bnzBZV9xlWICpe/uHeHopjSdq7FnBcwF3lM29BPwLn3jwEEdNeABuTPBsdivDzyKw0Mn2mLY/13qQGdffx6kFSlnXm/9TPwakH1DA4mKntb8ZYTVVjXswKOdjSnTQ79gvW+ivpZBdL4+z+S4piXO4WrTE=xYg9t+76thg0lDfDX7CLXcQ3ljXYjZTtvUYERD3WuwuHYDXJp6RYQ4SY47PB74yhdSqYKl3p8WzrjEbhCC/J/65910ESSi+5mYj1/9XP3FF8Ie+EwQmTCQCwi/cxZoYKI+9ULPkucI33zqEl1ZCAYmoVv2hhGv4d9zI22eHpkhngIB4fRkmVneacckd7hdqQdvpM5dyVyVQRuYw9OwSakcnHHqbabojYGb2sb/QEUcSBd2mCo72lQxEtaZAtd58TMdCHt2G0DEqg9C/ciWz6PSbSAtzWfKGR8JDo7d6bZNtC2W2olQYS6RQbLI42laBNxSEZbLiI8LQOF87BJOR9eftryPXJ3tGHoG3OfE7LvmzQm2gEwhwjS+lWl2xu1k/eRuUwS1JEwB5y3mJDXQ8xbnkDGeT9AclKjOCD7V3Z5Y2VqA1GcRbdEH6YHeEJZt+PnmY921dhjF/wYzYJFF2hpTh6f9Or9nm8WVnR9ltu7+m9tB8x4DQeX21TEwarAw1ImG6yIfOY+XWioKVWXySP5owen2onPLRZaYNaaZ9c8z668jHXKOvsgTb6DeNxQs+w228ze7VBzp9upujA2QnNaXVlUBt+NLBzZP8H5dL53Xg7z6PtNUqxlSGefqLG2p6bEoYRM2ToIMBYuzNYs9ADLNQHOqOCySZ2DCneGop/KMqEgVeEweu6STVxXaNn8NxSBYt0v2QfKpWuJ/0lXAQ/wsLnGkFcXKpVjj0N5pVO0QE3u63kMgSzM3a05sQqxriFygYfhMbKEpmERG+5fu+anujFBH85V7sV0h8cE3Ih7L9gMLXfDLFBjIeR6vR9CXczTNcjKXDIBD9bRCB75sW4wvnHmJovAkbKjnwHIa6x6x8739N9VQRwaID8GH1uyb3z95iKNmGo65MaxN2sa15w69YwlArWm/bqZKka30HzAiUwdtGkPkBQw1HCjYLNeNSa8Mv7JD5j5eXnrHcdwPJT1exTqUh6tT3NmVFWjLIldy9HgbIOAfX4rrspUJeBmvhbkdLO506Dd/Wtn4hlGqjieIbvAy+F3S02vdRosohJ+DtQn8JlyXILkhzErZkWX6vI02QVdYJYiTu4trcYmoJtMg==
