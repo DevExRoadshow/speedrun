@@ -22,11 +22,11 @@ repo_type="$6"
 
 if [[ $target_env =~ '^ode\d+$' ]]
 then
-  echo 'CDE - proceeding with DB Clone';
+  echo Target name is: ' . $target_env . '. CDE - proceeding with DB Clone';
   drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin;
   drush @$site.$target_env sql-sync @$site.test default --yes;
 else
-  echo 'Not a CDE';
+  echo 'Target name is: ' . $target_env . '. Not a CDE';
 fi
 
   . /var/www/html/$site.$target_env/vendor/acquia/blt/scripts/cloud-hooks/functions.sh
