@@ -20,14 +20,13 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
-regex='^[0-9][0-9][_][0-9][0-9][_][0-9][0-9]$'
-if [[ target_env =~ '^ode\d+$' ]]
+if [[ $target_env =~ '^ode\d+$' ]]
 then
-  echo 'ODE - proceeding with DB Clone';
+  echo 'CDE - proceeding with DB Clone';
   drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin;
   drush @$site.$target_env sql-sync @$site.test default --yes;
 else
-  echo 'Not an ODE';
+  echo 'Not a CDE';
 fi
 
   . /var/www/html/$site.$target_env/vendor/acquia/blt/scripts/cloud-hooks/functions.sh
