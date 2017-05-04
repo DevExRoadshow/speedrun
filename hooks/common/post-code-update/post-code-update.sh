@@ -20,7 +20,7 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
-if [[ $target_env =~ '^ode\d+$' ]]
+if [[ $target_env =~ '^ode' ]]
 then
   echo Target name is: ' . $target_env . '. CDE - proceeding with DB Clone';
   drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin;
