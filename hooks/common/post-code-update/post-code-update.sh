@@ -23,9 +23,14 @@ repo_type="$6"
 re="^ode*"
 if [[ $target_env =~ $re ]]
 then
-  echo 'Target name is: ' . $target_env . '. CDE - proceeding with install/DB Clone';
+  echo 'Target name is: ' . $target_env . '. This is a CDE.';
+
+  # Fresh install of Lightning if this is a new environment.
   drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin;
-  drush @$site.$target_env ac-database-copy prod $target_env
+
+  # Since we can't copy databases into CDEs yet, manually set the site UUID so
+  # that we can at least run a config import.
+  drush @$site.$target_env config-set --yes "system.site" uuid "426134d7-3f71-415d-ab23-454ddcfdc6b7"
 else
   echo 'Target name is: ' . $target_env . '. Not a CDE';
 fi
