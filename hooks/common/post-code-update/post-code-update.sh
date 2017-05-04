@@ -23,7 +23,10 @@ repo_type="$6"
 regex='^[0-9][0-9][_][0-9][0-9][_][0-9][0-9]$'
 if [[ target_env =~ '^ode\d+$' ]]
 then
-  drush @$site.$target_env sql-sync @$site.test default --yes
+  echo 'ODE - proceeding with DB Clone';
+  drush @$site.$target_env sql-sync @$site.test default --yes;
+else
+  echo 'Not an ODE';
 fi
 
   . /var/www/html/$site.$target_env/vendor/acquia/blt/scripts/cloud-hooks/functions.sh
