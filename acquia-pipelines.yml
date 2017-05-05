@@ -22,15 +22,22 @@ events:
               - source ${BLT_DIR}/scripts/pipelines/setup_project
               - composer install-phantomjs
 
-        # Install Lightning and setup behat config.
-        - configure-behat:
+        # Install Lightning and copy prod database.
+        - install:
             type: script
             script:
-              - 'set -x'
-              - 'cd ./docroot'
-              - '/usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes'
-              - '../vendor/bin/drush --alias-path=../drush sql-sync @speedrun.test default --yes'
-              - '../vendor/bin/drush config-import --yes --config=../config/default'
+              - set -x
+              - cd ./docroot
+
+              # Install Lightning from scratch first so our settings file gets
+              # the correct DB connection details for the test env.
+              - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" ../vendor/bin/drush site-install lightning --db-url=mysql://root:root@127.0.0.1/drupal --yes
+
+              # Then copy the prod database over.
+              - ../vendor/bin/drush --alias-path=../drush sql-sync @speedrun.prod default --yes
+
+              # Run a config import to get any new config changes from code.
+              - ../vendor/bin/drush config-import --yes --config=../config/default
 
         # Execute all testing and validation tasks.
         - run-tests:
