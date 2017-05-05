@@ -14,7 +14,6 @@ events:
         - setup:
             type: script
             script:
-              - set -x
               - composer self-update
               - composer validate --no-check-all --ansi
               - composer install
@@ -26,7 +25,6 @@ events:
         - install:
             type: script
             script:
-              - set -x
               - cd ./docroot
 
               # Install Lightning from scratch first so our settings file gets
@@ -43,7 +41,6 @@ events:
         - run-tests:
             type: script
             script:
-              - set -x
               - ../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &
               - ../vendor/bin/phantomjs --webdriver=4444 > /dev/null &
               - sleep 10
@@ -56,7 +53,6 @@ events:
         - build-artifact:
             type: script
             script:
-              - set -x
               - source ${BLT_DIR}/scripts/pipelines/build_artifact
 
         # Deploy the build artifact to a Cloud on-demand environment.
