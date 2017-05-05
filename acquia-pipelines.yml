@@ -33,6 +33,8 @@ events:
 
               # Then copy the prod database over.
               - ../vendor/bin/drush --alias-path=../drush sql-sync @speedrun.prod default --yes
+              - ../vendor/bin/drush updatedb --yes
+              - ../vendor/bin/drush cache-rebuild
 
               # Run a config import to get any new config changes from code.
               - ../vendor/bin/drush config-import --yes --config=../config/default
@@ -47,7 +49,7 @@ events:
               # Run a specific Lightning test:
               # - Panelizer is enabled for landing pages (1e244c89)
               - pwd
-              - ../vendor/bin/behat --config ../behat.pipelines.yml --tags=1e244c89,paragraphs
+              - ../vendor/bin/behat --config ../behat.pipelines.yml --tags=1e244c89
 
         # Generate artifact.
         - build-artifact:
