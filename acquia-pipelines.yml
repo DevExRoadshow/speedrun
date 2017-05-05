@@ -47,7 +47,7 @@ events:
               - cd $BUILD_DIR
               - ./vendor/bin/drupal behat:init http://127.0.0.1:8080 --merge=../docroot/profiles/contrib/lightning/tests/behat.yml
               - ./vendor/bin/drupal behat:include ../docroot/profiles/contrib/lightning/tests/features --with-subcontexts=../docroot/profiles/contrib/lightning/tests/features/bootstrap --with-subcontexts=../docroot/profiles/contrib/lightning/src/LightningExtension/Context
-              - ./vendor/bin/drupal behat:include ../docroot/tests/behat/features
+              - ./vendor/bin/drupal behat:include ../tests/behat/features
 
         # Execute all testing and validation tasks.
         - run-tests:
