@@ -79,4 +79,11 @@
 
     </target>
 
+    <property name="host" value="127.0.0.1:8080" />
+    <target name="behat-generate" description="Generates behat config based on environment.">
+        <exec command="./vendor/bin/drupal behat:init http://${host} --merge=../docroot/profiles/contrib/lightning/tests/behat.yml" dir="${docroot}/../" passthru="true" />
+        <exec command="./vendor/bin/drupal behat:include ../docroot/profiles/contrib/lightning/tests/features --with-subcontexts=../docroot/profiles/contrib/lightning/tests/features/bootstrap --with-subcontexts=../docroot/profiles/contrib/lightning/src/LightningExtension/Context" dir="${docroot}/../" passthru="true" />
+        <exec command="./vendor/bin/drupal behat:include ../tests/behat/features" dir="${docroot}/../" passthru="true" />
+    </target>
+
 </project>
