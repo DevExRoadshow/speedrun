@@ -45,9 +45,7 @@ events:
             type: script
             script:
               - cd $BUILD_DIR
-              - ./vendor/bin/drupal behat:init http://127.0.0.1:8080 --merge=../docroot/profiles/contrib/lightning/tests/behat.yml
-              - ./vendor/bin/drupal behat:include ../docroot/profiles/contrib/lightning/tests/features --with-subcontexts=../docroot/profiles/contrib/lightning/tests/features/bootstrap --with-subcontexts=../docroot/profiles/contrib/lightning/src/LightningExtension/Context
-              - ./vendor/bin/drupal behat:include ../tests/behat/features
+              - blt behat-generate
 
         # Execute all testing and validation tasks.
         - run-tests:
@@ -59,7 +57,6 @@ events:
               - sleep 10
               # Run a specific Lightning test:
               # - Panelizer is enabled for landing pages (1e244c89)
-              - pwd
               - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89
 
         # Generate artifact.
