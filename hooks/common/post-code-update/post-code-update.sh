@@ -25,8 +25,9 @@ if [[ $target_env =~ $re ]]
 then
   echo 'Target name is: ' $target_env '. This is a CDE.';
 
-  # Fresh install of Lightning if this is a new environment.
-  drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Skipping drush site-install' || drush @$site.$target_env site-install lightning --yes --account-pass=admin;
+  # Start with a fresh install of Lightning.
+  drush @$site.$target_env status | grep -q 'Successful' && echo -e 'Site already installed. Dropping DB so we can reinstall.' && drush @$site.$target_env sql-drop --yes || echo -e 'Site not installed, proceeding.'
+  drush @$site.$target_env site-install lightning --yes --account-pass=admin;
 
   # Since we can't copy databases into CDEs yet, manually set the site UUID so
   # that we can at least run a config import.
