@@ -1,0 +1,40 @@
+uuid: d3612a04-4022-462e-a556-b979c062dc36
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_media.field_media
+    - field.field.paragraph.text_media.field_text
+    - paragraphs.paragraphs_type.text_media
+  module:
+    - workbench_moderation
+id: paragraph.text_media.default
+targetEntityType: paragraph
+bundle: text_media
+mode: default
+content:
+  field_media:
+    type: entity_browser_entity_reference
+    weight: 7
+    settings:
+      entity_browser: media_browser
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+    third_party_settings: {  }
+  field_text:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
