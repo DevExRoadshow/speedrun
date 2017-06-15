@@ -4,8 +4,8 @@ services:
 
 variables:
   global:
-    COMPOSER_BIN: $BUILD_DIR/vendor/bin
-    BLT_DIR: $BUILD_DIR/vendor/acquia/blt
+    COMPOSER_BIN: $SOURCE_DIR/vendor/bin
+    BLT_DIR: $SOURCE_DIR/vendor/acquia/blt
 
 events:
   build:
@@ -14,7 +14,7 @@ events:
         - setup:
             type: script
             script:
-              - cd $BUILD_DIR
+              - cd $SOURCE_DIR
               - composer install
               - source ${BLT_DIR}/scripts/pipelines/setup_environment
               - source ${BLT_DIR}/scripts/pipelines/setup_project
@@ -24,7 +24,7 @@ events:
         - install:
             type: script
             script:
-              - cd $BUILD_DIR/docroot
+              - cd $SOURCE_DIR/docroot
 
               # Install Lightning from scratch first so our settings file gets
               # the correct DB connection details for the test env.
@@ -42,14 +42,14 @@ events:
         - configure:
             type: script
             script:
-              - cd $BUILD_DIR
+              - cd $SOURCE_DIR
               - blt behat-generate
 
         # Execute all testing and validation tasks.
         - run-tests:
             type: script
             script:
-              - cd $BUILD_DIR/docroot
+              - cd $SOURCE_DIR/docroot
               - ../vendor/bin/drush runserver --default-server=builtin 8080 &>/dev/null &
               - ../vendor/bin/phantomjs --webdriver=4444 > /dev/null &
               - sleep 10
