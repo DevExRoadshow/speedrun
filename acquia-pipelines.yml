@@ -55,7 +55,7 @@ events:
               - sleep 10
               # Run a specific Lightning test:
               # - Panelizer is enabled for landing pages (1e244c89)
-              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89
+              - ../vendor/bin/behat --config ./sites/default/files/behat.yml --tags=1e244c89, paragraphs
 
         # Generate artifact.
         - build-artifact:

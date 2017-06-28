@@ -41,4 +41,5 @@ content:
     weight: -20
     region: content
 hidden:
+  panelizer: true
   scheduled_update: true
